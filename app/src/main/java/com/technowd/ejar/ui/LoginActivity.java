@@ -16,10 +16,11 @@ import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.technowd.ejar.MainActivity;
 import com.technowd.ejar.R;
 import com.technowd.ejar.general.Functions;
+
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
@@ -37,7 +38,7 @@ public class LoginActivity extends AppCompatActivity {
         login_toolbar = findViewById(R.id.login_toolbar);
         login_email = findViewById(R.id.login_email);
         login_password = findViewById(R.id.login_password);
-        login_btn = (CircularProgressButton) findViewById(R.id.login_btn);
+        login_btn = findViewById(R.id.login_btn);
         mAuth = FirebaseAuth.getInstance();
         // Init toolbar
         setSupportActionBar(login_toolbar);
@@ -54,10 +55,6 @@ public class LoginActivity extends AppCompatActivity {
     @Override
     protected void onStart() {
         super.onStart();
-        FirebaseUser user = mAuth.getCurrentUser();
-//        if(user != null){
-//            goToActivityByParam(MainActivity.class);
-//        }
     }
 
     // go to Register activity
@@ -66,12 +63,13 @@ public class LoginActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
-    // go to Restorepassword activity
+    // go to Restore password activity
     public void goToRestorePassword(View view) {
         Intent intent = new Intent(LoginActivity.this, RestorePasswordActivity.class);
         startActivity(intent);
         finish();
     }
+
     // Create menu
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -82,13 +80,11 @@ public class LoginActivity extends AppCompatActivity {
     // do event when user press item from menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.back:
-                functions.goToActivityByParam(MainActivity.class);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.back) {
+            functions.goToActivityByParam(MainActivity.class);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
     // ------------------------------------------------------------------//
     // Log in via firebase
@@ -106,7 +102,7 @@ public class LoginActivity extends AppCompatActivity {
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (task.isSuccessful()) {
                                 functions.goToActivityByParam(NewRentActivity.class);
-                            }else if(task.getException().getMessage().contains("The password is invalid or the user does not have a password")){
+                            }else if(Objects.requireNonNull(task.getException()).getMessage().contains("The password is invalid or the user does not have a password")){
                                     functions.custom_toast(getString(R.string.password_incorrect));
                             }else if(task.getException().getMessage().contains("There is no user record corresponding to this identifier. The user may have been deleted")){
                                 functions.custom_toast(getString(R.string.there_no_user));
