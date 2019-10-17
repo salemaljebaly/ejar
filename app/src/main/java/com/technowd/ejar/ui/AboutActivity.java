@@ -14,11 +14,9 @@ import android.view.View;
 
 import com.technowd.ejar.MainActivity;
 import com.technowd.ejar.R;
-import com.technowd.ejar.general.Functions;
 
 public class AboutActivity extends AppCompatActivity {
     Toolbar about_tool_bar;
-    private Functions functions = new Functions(AboutActivity.this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -28,14 +26,14 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void facebook(View view) {
-        Uri faceookLink = Uri.parse("https://www.facebook.com/AlnofaliyaAlriyadah/");
+        Uri faceookLink = Uri.parse(getString(R.string.facebook_url));
         Intent facebook = new Intent(Intent.ACTION_VIEW, faceookLink);
         startActivity(facebook);
     }
 
     @SuppressLint("IntentReset")
     public void mail(View view) {
-        String[] To = new String[] {"salemaljebaly@gmail.com"};
+        String[] To = new String[] {getString(R.string.developer_email)};
         Intent sendEmail = new Intent(Intent.ACTION_SEND);
         sendEmail.setData(Uri.parse("mailto:"));
         sendEmail.setType("text/plain");
@@ -47,7 +45,7 @@ public class AboutActivity extends AppCompatActivity {
     }
 
     public void playStore(View view) {
-        Uri playstore = Uri.parse("https://play.google.com/store/apps/developer?id=salem+abdulla");
+        Uri playstore = Uri.parse(getString(R.string.google_play_developer_url));
         Intent play = new Intent(Intent.ACTION_VIEW, playstore);
             if (play.resolveActivity(getPackageManager()) != null) {
                 startActivity(play);
@@ -64,13 +62,11 @@ public class AboutActivity extends AppCompatActivity {
     // do event when user press item from menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.back:
-                goToLogin();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.back) {
+            goToLogin();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 
     // go to Login( activity
@@ -82,7 +78,7 @@ public class AboutActivity extends AppCompatActivity {
 
     // Share app
     public void share(View view) {
-            String shareLink = "https://play.google.com/store/apps/details?id=com.technowd.ejar";
+            String shareLink = getString(R.string.app_url);
             Intent share = new Intent(Intent.ACTION_SEND);
             share.setType("text/plain");
             share.putExtra(Intent.EXTRA_TEXT,shareLink);
