@@ -126,4 +126,8 @@
     <string name="place_text">المكان</string>
     <string name="sent_msg_to_u_email">تم إرسال رسالة إلى بريدك تحقق منها</string>
     <string name="there_is_no_data_filled">لاتوجد بيانات مسبقة يجب تعبئة البيانات</string>
+    <string name="facebook_url">https://www.facebook.com/salemhoursienabdulla</string>
+    <string name="google_play_developer_url">https://play.google.com/store/apps/developer?id=salem+abdulla</string>
+    <string name="developer_email">salemaljebaly@gmail.com</string>
+    <string name="app_url">https://play.google.com/store/apps/details?id=com.technowd.ejar</string>
 </resources>
