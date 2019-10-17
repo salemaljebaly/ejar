@@ -20,6 +20,8 @@ import com.technowd.ejar.MainActivity;
 import com.technowd.ejar.R;
 import com.technowd.ejar.general.Functions;
 
+import java.util.Objects;
+
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 public class RegisterActivity extends AppCompatActivity {
@@ -33,17 +35,22 @@ public class RegisterActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
         // Init variables
+        initVariables();
+        // get instance from fire base auth
+        mAuth = FirebaseAuth.getInstance();
+        // Init toolbar
+        setSupportActionBar(register_toolbar);
+        // ------------------------------------------------------------------ //
+    }
+
+    private void initVariables() {
         register_toolbar = findViewById(R.id.register_toolbar);
         register_email = findViewById(R.id.register_email);
         register_password = findViewById(R.id.register_password);
         register_repeat_password = findViewById(R.id.register_repeat_password);
         register_btn = findViewById(R.id.register_btn);
-        mAuth = FirebaseAuth.getInstance();
-        // Init toolbar
-        setSupportActionBar(register_toolbar);
-        // ------------------------------------------------------------------ //
-
     }
+
     // go to Login( activity
     public void goToLogin(View view) {
         Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
@@ -59,13 +66,11 @@ public class RegisterActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.back:
-                goToMain();
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.back) {
+            goToMain();
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
     // go to main activity
     private void goToMain() {
@@ -92,7 +97,7 @@ public class RegisterActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 functions.custom_toast(getString(R.string.user_added));
                                 functions.goToActivityByParam(SetUpActivity.class);
-                            } else if(task.getException().getMessage().contains("The email address is badly formatted")) {
+                            } else if(Objects.requireNonNull(task.getException()).getMessage().contains("The email address is badly formatted")) {
                                 functions.custom_toast(getString(R.string.email_not_right));
                             } else if(task.getException().getMessage().contains("The email address is already in use by another account.")){
                                 functions.custom_toast(getString(R.string.email_is_exists));
