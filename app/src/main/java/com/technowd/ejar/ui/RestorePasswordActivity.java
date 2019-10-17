@@ -1,12 +1,10 @@
 package com.technowd.ejar.ui;
 
 import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -18,6 +16,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.technowd.ejar.R;
 import com.technowd.ejar.general.Functions;
+
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
@@ -52,13 +52,11 @@ public class RestorePasswordActivity extends AppCompatActivity {
     // do event when user press item from menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.back:
-                functions.goToActivityByParam(LoginActivity.class);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.back) {
+            functions.goToActivityByParam(LoginActivity.class);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
     // Recover user password by send an email
     public void recoverPasswordByEmail(View view) {
@@ -72,8 +70,7 @@ public class RestorePasswordActivity extends AppCompatActivity {
                             if(task.isSuccessful()){
                                 functions.custom_toast(getString(R.string.sent_msg_to_u_email));
                             } else {
-                                Log.e("err", task.getException().getMessage());
-                                if(task.getException().getMessage().contains("There is no user record corresponding to this identifier. The user may have been deleted.")){
+                                if(Objects.requireNonNull(task.getException()).getMessage().contains("There is no user record corresponding to this identifier. The user may have been deleted.")){
                                     functions.custom_toast("هذا الايميل غير موجود مسبقا !");
                                 } else {functions.custom_toast("حدث خطأ تأكد من الايميل !");}
                             }
