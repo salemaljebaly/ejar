@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="vertical"
+    android:orientation="vertical"
+    tools:context=".ui.SetUpActivity">
+
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/setup_tool_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:title="@string/account_setting"
+        app:titleTextAppearance="@style/titleBarAppearance"
+        app:titleTextColor="@android:color/white"
+        tools:ignore="MissingConstraints" />
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/user_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center"
+                android:src="@drawable/ic_user"/>
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/edit_text_margin"
+                android:layout_marginLeft="@dimen/edit_text_margin"
+                android:layout_marginTop="@dimen/edit_text_margin"
+                android:layout_marginEnd="@dimen/edit_text_margin"
+                android:layout_marginRight="@dimen/edit_text_margin"
+                android:ems="10"
+                android:hint="@string/fullname"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <EditText
+                    android:id="@+id/user_phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/edit_text_margin"
+                    android:layout_marginLeft="@dimen/edit_text_margin"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="@dimen/edit_text_margin"
+                    android:layout_marginRight="@dimen/edit_text_margin"
+                    android:ems="10"
+                    android:layout_weight="5"
+                    android:hint="@string/user_phone"
+                    android:inputType="phone"/>
+                <TextView
+                android:id="@+id/country_code"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="2"
+                android:layout_marginTop="20dp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:textSize="14sp"
+                android:text="+218"/>
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/country_container"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="20dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent">
+
+
+                <TextView
+                    android:id="@+id/country"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:textColor="@android:color/black"
+                    android:text="@string/libya"/>
+                <Spinner
+                    android:id="@+id/setup_spinner_city"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:spinnerMode="dialog"
+                    android:textColor="@android:color/black"
+                    />
+            </LinearLayout>
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                android:id="@+id/save_setup"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/edit_text_margin"
+                android:layout_marginLeft="@dimen/edit_text_margin"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="@dimen/edit_text_margin"
+                android:layout_marginRight="@dimen/edit_text_margin"
+                app:spinning_bar_width="4dp"
+                app:spinning_bar_padding="6dp"
+                app:spinning_bar_color="#FFF"
+                android:fontFamily="@font/cairo_font"
+                android:background="@drawable/main_btn"
+                android:ems="10"
+                android:text="@string/save_btn"
+                android:layout_gravity="center"
+                android:textColor="@android:color/white"
+                android:onClick="saveSetUp"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

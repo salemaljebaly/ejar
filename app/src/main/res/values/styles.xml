@@ -1,0 +1,24 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:fontFamily">@font/cairo_font</item>
+        <item name="android:textSize">@dimen/app_default_font_size</item>
+        <item name="android:actionMenuTextColor">@android:color/white</item>
+        <item name="android:backgroundDimEnabled">false</item><!-- remove dark background from map-->
+    </style>
+    <style name="titleBarAppearance" parent="TextAppearance.AppCompat.Widget.ActionBar.Menu">
+        <item name="android:fontFamily">@font/cairo_font</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="AlertDialogCustom" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@drawable/alert_background</item>
+    </style>
+    <dimen name="app_default_font_size">12sp</dimen>
+</resources>

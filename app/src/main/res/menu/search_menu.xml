@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <!-- This menu users are log in -->
+    <item
+        android:id="@+id/about_app"
+        android:title="@string/about_app" />
+
+    <item
+        android:id="@+id/search_rent"
+        android:title="@string/log_out"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_search_black_24dp"/>
+    <item
+        android:id="@+id/close_app"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="@string/close_app" />
+    <item
+        android:id="@+id/back"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="@string/back" />
+
+</menu>

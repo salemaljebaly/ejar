@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    >
+    <!-- This menu users are log in -->
+    <item
+        android:id="@+id/publish_rent"
+        android:title="@string/create_account" />
+    <item
+        android:id="@+id/search_rent_menu"
+        android:title="@string/searh"
+        android:icon="@drawable/ic_search_black_24dp"/>
+    <item
+        android:id="@+id/setting"
+        android:title="@string/settings" />
+    <item
+        android:id="@+id/about_app"
+        android:title="@string/about_app" />
+    <item
+        android:id="@+id/current_user_add"
+        android:title="@string/my_add" />
+
+    <item
+        android:id="@+id/log_out"
+        android:title="@string/log_out"/>
+    <item
+        android:id="@+id/close_app"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="@string/close_app" />
+</menu>

@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.RegisterActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/register_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:title="@string/add_new_account"
+        app:titleTextAppearance="@style/titleBarAppearance"
+        app:titleTextColor="@android:color/white"
+        tools:ignore="MissingConstraints" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <ImageView
+                android:id="@+id/ejar_logo"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="center"
+                android:src="@drawable/logo" />
+
+            <EditText
+                android:id="@+id/register_email"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/edit_text_margin"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"/>
+
+            <EditText
+                android:id="@+id/register_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/edit_text_margin"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/edit_text_margin"
+                android:layout_marginRight="@dimen/edit_text_margin"
+                android:ems="10"
+                android:hint="@string/login_password"
+                android:inputType="textPassword"
+                android:textAlignment="textEnd"/>
+
+            <EditText
+                android:id="@+id/register_repeat_password"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/edit_text_margin"
+                android:layout_marginLeft="@dimen/edit_text_margin"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/edit_text_margin"
+                android:layout_marginRight="@dimen/edit_text_margin"
+                android:ems="10"
+                android:hint="@string/login_repeat_password"
+                android:inputType="textPassword"
+                android:textAlignment="textEnd"/>
+
+            <br.com.simplepass.loading_button_lib.customViews.CircularProgressButton
+                android:id="@+id/register_btn"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/edit_text_margin"
+                android:layout_marginLeft="@dimen/edit_text_margin"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="@dimen/edit_text_margin"
+                android:layout_marginRight="@dimen/edit_text_margin"
+                android:background="@drawable/main_btn"
+                app:spinning_bar_width="4dp"
+                app:spinning_bar_padding="6dp"
+                app:spinning_bar_color="#FFF"
+                android:fontFamily="@font/cairo_font"
+                android:layout_gravity="center"
+                android:text="@string/rigester_btn"
+                android:textColor="@android:color/white"
+                android:onClick="register"
+                />
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/edit_text_margin"
+                android:layout_marginLeft="@dimen/edit_text_margin"
+                android:layout_marginEnd="@dimen/edit_text_margin"
+                android:layout_marginRight="@dimen/edit_text_margin"
+                android:layout_marginBottom="@dimen/edit_text_margin"
+                android:layout_marginTop="40dp"
+                android:background="@drawable/main_btn"
+                android:ems="10"
+                android:text="@string/Ihave_account"
+                android:textColor="@android:color/white"
+                android:onClick="goToLogin"/>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

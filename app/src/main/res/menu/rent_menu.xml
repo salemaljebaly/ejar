@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/switch_menu"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="حالة الايجار"
+        android:actionLayout="@layout/is_vacant"/>
+    <item
+        android:id="@+id/edit_rent"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="@string/edit_rent" />
+    <item
+        android:id="@+id/delete_rent"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="@string/delete_rent" />
+    <item
+        android:id="@+id/back"
+        android:icon="@drawable/ic_arrow_back_black_24dp"
+        android:title="@string/back" />
+</menu>

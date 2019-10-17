@@ -1,0 +1,129 @@
+<resources>
+    <string name="app_name">إيجــار</string>
+    <string name="ejar_logo">شعار إيجار</string>
+    <string name="email">الإيميل</string>
+    <string name="login_password">كلمة المرور</string>
+    <string name="login_btn">تسجيل الدخول</string>
+    <string name="dont_have_account">لاتملك حسابا ! سجل الأن</string>
+    <string name="forget_password">نسيت كلمة المرور ؟</string>
+    <string name="Ihave_account">لدي حساب بالفعل</string>
+    <string name="register_btn">تسجيل</string>
+    <string name="restore_btn">إرسال</string>
+    <string name="restore_toolbar">استرجاع كلمة المرور عبر الايميل</string>
+    <string name="back">رجوع</string>
+    <string name="user_phone">رقم الهاتف</string>
+    <string name="user_name">الأسم</string>
+    <string name="libya">ليبيا</string>
+    <string name="about_desc">إيجار تطبيق خدمي يساعدك علي ايجاد منزل للإيجار في أسرع وقت إضافتا الي موقع الإيجار بالتحديد علي الخريطة .. كما يساعد المستأجرين علي وضع عروضهم </string>
+    <string name="desc">الوصف</string>
+    <string name="type">نوع العقار</string>
+    <string name="room_numbers">عدد الغرف</string>
+    <string name="state">الحالة</string>
+    <string name="price">السعر</string>
+    <string name="place">المكان بالتحديد</string>
+    <string name="publisher_image">صورة الناشر</string>
+    <string name="about_app_name">Ejar - إجار</string>
+    <string name="app_version">1.1</string>
+    <string name="developer">مطور التطبيق : سالم الجبالي</string>
+    <string name="publish">نشر</string>
+    <string name="create_account">نشر إعلان</string>
+    <string name="settings">الاعدادات</string>
+    <string name="close_app">خروج من البرنامج</string>
+    <string name="about_app">حول التطبيق</string>
+    <string name="login_repeat_password">إعادة كلمة المرور</string>
+    // list of libya city
+    <string-array name="city_spinner">
+        <item>إختر المدينة</item>
+        <item>النوفلية</item>
+        <item>طرابلس</item>
+        <item>بنغازي</item>
+        <item>مصراتة</item>
+        <item>زليتن</item>
+        <item>البيضاء</item>
+        <item>اجدابيا</item>
+        <item>طبرق</item>
+        <item>صبراتة</item>
+        <item>سبها</item>
+        <item>الخمس</item>
+        <item>درنة</item>
+        <item>سرت</item>
+        <item>الجميل</item>
+        <item>الكفرة</item>
+        <item>المرج</item>
+        <item>ترهونة</item>
+        <item>غريان</item>
+        <item>مسلاتة</item>
+        <item>يفرن</item>
+        <item>بني وليد</item>
+        <item>بن جواد</item>
+        <item>صرمان</item>
+        <item>رقدالين</item>
+        <item>الزنتان</item>
+        <item>زوارة</item>
+        <item>شحات</item>
+        <item>أوباري</item>
+        <item>الأبيار</item>
+        <item>زلطن</item>
+        <item>القبة</item>
+        <item>تاورغاء</item>
+        <item>الماية</item>
+        <item>مرزق</item>
+        <item>البريقة</item>
+        <item>هون</item>
+        <item>جالو</item>
+        <item>نالوت</item>
+        <item>سلوق</item>
+        <item>مزدة</item>
+        <item>راس لانوف</item>
+        <item>العربان</item>
+        <item>ودان</item>
+        <item>العجيلات</item>
+        <item>توكرة</item>
+        <item>براك</item>
+        <item>غدامس</item>
+        <item>غات</item>
+        <item>أوجلة</item>
+        <item>سوسة</item>
+    </string-array>
+    // list of libya city
+    <string-array name="daily_or_monthly">
+        <item>يومي</item>
+        <item>شهري</item>
+    </string-array>
+    <string name="title_activity_maps">Map</string>
+    <string name="login_menu">تسجيل الدخول</string>
+    <string name="save_btn">حفظ</string>
+    <string name="fullname">الإسم الكامل</string>
+    <string name="log_out">تسجيل خروج</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="account_setting">إعدادات الحساب</string>
+    <string name="add_new_account">تسجيل حساب جديد</string>
+    <string name="rigester_btn">تسجيل</string>
+    <string name="my_add">إعلاناتي</string>
+    <string name="userResnts">إعلاناتي</string>
+    <string name="edit_rent">تعديل</string>
+    <string name="delete_rent">حذف</string>
+    <string name="cancel">إلغاء</string>
+    <string name="approve">تأكيد</string>
+    <string name="are_u_sure_to_delete">هل أنت متأكد من عملية الحذف ؟</string>
+    <string name="about_ejar">حول إيجار</string>
+    <string name="password_incorrect">كلمة المرور غير صحيحة !</string>
+    <string name="there_no_user">لايوجد مستخدم بهذا الايميل !</string>
+    <string name="email_not_right">يجب كتابة ايميل صحيح</string>
+    <string name="fields_empty">لايمكن ترك أين من الحقول فارغا</string>
+    <string name="network_problem">يوجد مشكلة في الشبكة</string>
+    <string name="data_updated">تم تحديث البيانات</string>
+    <string name="ejar_added">تمت إضافة ايجار</string>
+    <string name="error">حدث خطأ :(</string>
+    <string name="pass_cant_less_6">يجب أن تكون كلمة المرور أكبر من 6 خانات</string>
+    <string name="email_is_exists">هذا الايميل موجود مسبقا !</string>
+    <string name="user_added">تمت إضافة مستخدم جديد</string>
+    <string name="filterby">فرز حسب</string>
+    <string name="searh">بحث</string>
+    <string name="delete_user">حذف المستخدم</string>
+    <string name="place_text">المكان</string>
+    <string name="sent_msg_to_u_email">تم إرسال رسالة إلى بريدك تحقق منها</string>
+    <string name="there_is_no_data_filled">لاتوجد بيانات مسبقة يجب تعبئة البيانات</string>
+</resources>

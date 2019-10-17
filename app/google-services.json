@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "662019267942",
+    "firebase_url": "https://ejar-app.firebaseio.com",
+    "project_id": "ejar-app",
+    "storage_bucket": "ejar-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:662019267942:android:4755cd17d75ab49c",
+        "android_client_info": {
+          "package_name": "com.technowd.ejar"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "662019267942-ra8qkj19ej0s66j9cgmjjcf8m01a8o8t.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.technowd.ejar",
+            "certificate_hash": "cdce206dd5c7685f91572d8ce9a94ed64d327e85"
+          }
+        },
+        {
+          "client_id": "662019267942-4seo1s5bcg0cv9l3tpi3nt9suf3ndt9d.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyArc_6lSVl9PkCMfTYiQR4nE_uhD1OlS3Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "662019267942-4seo1s5bcg0cv9l3tpi3nt9suf3ndt9d.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

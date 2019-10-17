@@ -1,0 +1,314 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.SingleRent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/singleToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimary"
+        app:titleTextColor="@android:color/white"
+        app:title="بيانات الايجار"
+        app:titleTextAppearance="@style/titleBarAppearance">
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="57dp"
+        android:paddingBottom="10dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <LinearLayout
+                    android:id="@+id/linearLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:orientation="horizontal"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintHorizontal_bias="0.0"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:layout_marginBottom="4dp">
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/single_user_image"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:contentDescription="@string/publisher_image"
+                            android:padding="2dp"
+                            android:src="@drawable/ic_user" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical"
+                            android:padding="2dp">
+
+                            <TextView
+                                android:id="@+id/single_rent_user"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/cairo_font"
+                                android:text=""
+                                android:textSize="8sp"
+                                />
+
+                            <TextView
+                                android:id="@+id/single_rent_date"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:fontFamily="@font/cairo_font"
+                                android:text=""
+                                android:textSize="8sp" />
+
+                        </LinearLayout>
+                    </LinearLayout>
+                </LinearLayout>
+
+                <ImageView
+                    android:id="@+id/single_map_image"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_gravity="end"
+                    android:layout_marginStart="4dp"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginEnd="4dp"
+                    android:layout_marginRight="4dp"
+                    android:src="@drawable/map"
+                    android:onClick="showRentInaMap"
+                    android:layout_alignParentEnd="true"
+                    />
+            </RelativeLayout>
+            <ImageView
+                android:id="@+id/single_main_image"
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:scaleType="centerCrop" />
+            <TableLayout
+                android:scrollbars="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="15dp"
+
+                >
+
+                <TableRow android:layout_margin="5dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:fontFamily="@font/cairo_font"
+
+                            android:layout_weight="1"
+                            android:text="المكان"
+                            android:textColor="@color/colorPrimary"
+                            android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/single_place"
+                        android:layout_weight="9"
+                        android:fontFamily="@font/cairo_font"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                </TableRow>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorPrimary"/>
+    <!-- -->
+
+                <TableRow android:layout_margin="5dp"
+                    android:weightSum="10">
+
+                    <TextView
+                        android:fontFamily="@font/cairo_font"
+                        android:layout_weight="1"
+                        android:text="نوع الإيجار"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/single_daily_or_monthly"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/cairo_font"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cairo_font"
+                        android:text="السعر"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/single_price"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/cairo_font"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                </TableRow>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorPrimary"/>
+                <TableRow
+                    android:layout_margin="5dp"
+                    android:weightSum="10">
+                    <TextView
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cairo_font"
+                        android:text="نوع المبنى"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/single_rent_building_type"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/cairo_font"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cairo_font"
+                        android:text="عدد الغرف"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/single_room_number"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/cairo_font"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                </TableRow>
+                <!-- Seperator -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorPrimary"/>
+                <TableRow android:layout_margin="5dp"
+                    android:layout_weight="10">
+
+                    <TextView
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cairo_font"
+                        android:text="الحالة"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/single_rent_state"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/cairo_font"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:layout_weight="1"
+                        android:fontFamily="@font/cairo_font"
+                        android:text="حالة المبنى"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                    <TextView
+                        android:id="@+id/vacant_state"
+                        android:layout_weight="4"
+                        android:fontFamily="@font/cairo_font"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+                </TableRow>
+                <!-- Seperator -->
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorPrimary"/>
+                <TableRow android:layout_margin="5dp"
+                    android:layout_weight="10"
+                    >
+                    <TextView
+                        android:layout_weight="2"
+                        android:fontFamily="@font/cairo_font"
+                        android:text="رقم الهاتف"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:id="@+id/single_renter_phone"
+                        android:layout_weight="6"
+                        android:fontFamily="@font/cairo_font"
+                        android:text=""
+                        android:textAlignment="center"
+                        android:textColor="@color/colorPrimary"
+                        android:textSize="12sp"
+                        />
+                    <ImageView
+                        android:src="@drawable/ic_local_phone_black_24dp"
+                        android:layout_weight="2"
+                        android:onClick="dialPhone"
+                        />
+                </TableRow>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/colorPrimary"/>
+
+                <TextView
+                    android:layout_margin="0dp"
+                    android:fontFamily="@font/cairo_font"
+                    android:text="الوصف"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="12sp"
+                    android:padding="2dp"/>
+
+                <TextView
+                    android:id="@+id/single_rent_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/cairo"
+                    android:text="إذا كنت تحتاج إلى عدد أكبر من الفقرات يتيح لك مولد النص العربى زيادة عدد الفقرات كما تريد، النص لن يبدو مقسما ولا يحوي أخطاء لغوية، مولد النص العربى مفيد لمصممي المواقع على وجه الخصوص، حيث يحتاج العميل فى كثير من الأحهذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرى إضافة إلى زيادة عدد الحروف التى يولدها التطبيق.
+هذا النص هو مثال لنص يمكن أن يستبدل في نفس المساحة، لقد تم توليد هذا النص من مولد النص العربى، حيث يمكنك أن تولد مثل هذا النص أو العديد من النصوص الأخرىان أن يطلع على صورة حقيقية لتصميم الموقع."
+                    android:textColor="@android:color/black"
+                    android:textSize="12sp" />
+
+            </TableLayout>
+        </LinearLayout>
+    </ScrollView>
+</RelativeLayout>
