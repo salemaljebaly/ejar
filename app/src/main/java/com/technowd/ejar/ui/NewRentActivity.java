@@ -1,6 +1,7 @@
 package com.technowd.ejar.ui;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.net.Uri;
@@ -52,17 +53,16 @@ import com.technowd.ejar.model.RentPosts;
 import com.theartofdev.edmodo.cropper.CropImage;
 import com.theartofdev.edmodo.cropper.CropImageView;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 
 public class NewRentActivity extends AppCompatActivity  {
     Toolbar new_ren_tool_bar;
     private Functions functions = new Functions(NewRentActivity.this);
-    private FirebaseAuth mAuth;
     private FirebaseFirestore firebaseFirestore;
     private StorageReference storageReference;
     private FirebaseUser user;
@@ -70,20 +70,21 @@ public class NewRentActivity extends AppCompatActivity  {
     private String rent_id; // rent ID which genarate automatic from firebase
     private String daily_or_monthly_text, placeText;// spinners
     private Uri rent_image_uri;
-    private ImageView rent_image, select_map;
+    private ImageView rent_image;
     private CircularProgressButton new_rent_btn;
     private boolean user_set_rent_image = false; // user when user take image or not
     private EditText new_rent_price,
             new_rent_state,new_rent_type,
             new_rent_room_numbers,new_rent_desc;
     private Spinner daily_or_monthly,place;
+    @SuppressLint("StaticFieldLeak")
     public static EditText new_rent_latitude;
+    @SuppressLint("StaticFieldLeak")
     public static EditText new_rent_longitude; // all inputs
     private ArrayList<RentPosts> rentPosts; // used to retrieve data as rent oist model
     private Boolean comeFromUser = false; // if true edit rent else not
     private int pos,placeIndex;
     private Map<String, Object> updateMap = new HashMap<>(); // update rent map
-    private String imageTimeName; // image name is by date
     private static final String TAG = "NewRent";
     // ------------------------------------------------------------------------ //
     @Override
@@ -93,7 +94,7 @@ public class NewRentActivity extends AppCompatActivity  {
         // Init Toolbar
         new_ren_tool_bar = findViewById(R.id.new_ren_tool_bar);
         setSupportActionBar(new_ren_tool_bar);
-        getSupportActionBar().setTitle("إضافة إيجار جديد");
+        Objects.requireNonNull(getSupportActionBar()).setTitle("إضافة إيجار جديد");
         // --------------------------------------------------------------------- //
         // All variables
         initAllVariables();
@@ -102,7 +103,7 @@ public class NewRentActivity extends AppCompatActivity  {
         dailyMonthlySpinner();
         // ---------------------------------------------------------------- //
         // inti firebase
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
         user = mAuth.getCurrentUser();
@@ -135,7 +136,6 @@ public class NewRentActivity extends AppCompatActivity  {
     // if user want to edit then fill data
     private void ifComeFromUserFillData() {
         if(comeFromUser){
-
             if(rentPosts.get(pos).getUser_set_rent_image().equals("true")){
                 // get image download link of current rent
                 Log.e("downlosd_link","rent_images/" + user.getUid() + "/" + rentPosts.get(pos).getTime() + ".jpg");
@@ -186,7 +186,6 @@ public class NewRentActivity extends AppCompatActivity  {
     private void initAllVariables() {
         // All variables
         rent_image =findViewById(R.id.rent_image);
-        select_map =findViewById(R.id.select_map);
         place      = findViewById(R.id.place);
         new_rent_price =findViewById(R.id.new_rent_price);
         new_rent_state =findViewById(R.id.new_rent_state);
@@ -243,11 +242,11 @@ public class NewRentActivity extends AppCompatActivity  {
                 @Override
                 public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                     if(task.isSuccessful()){
-                        if(!task.getResult().exists()){
+                        if(!Objects.requireNonNull(task.getResult()).exists()){
                             functions.goToActivityByParam(SetUpActivity.class);
                         }
                     } else{
-                        functions.custom_toast(task.getException().getMessage());
+                        functions.custom_toast(Objects.requireNonNull(task.getException()).getMessage());
                     }
                 }
             });
@@ -289,10 +288,9 @@ public class NewRentActivity extends AppCompatActivity  {
                 rent_image_uri = result.getUri();
                 rent_image.setImageURI(rent_image_uri);
                 user_set_rent_image = true;
-                Log.e(TAG, "onActivityResult: "+user_set_rent_image );
             } else if(resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE){
                 Exception error = result.getError();
-                Log.e(TAG, "onActivityResult: "+user_set_rent_image );
+                Log.e(TAG, "onActivityResult: "+ error );
             }
         }
     }
@@ -307,13 +305,11 @@ public class NewRentActivity extends AppCompatActivity  {
     // do event when user press item from menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.back:
-                functions.goToActivityByParam(MainActivity.class);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.back) {
+            functions.goToActivityByParam(MainActivity.class);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
     // post new rent to data base
     public void postNewRent(View view) {
@@ -337,7 +333,7 @@ public class NewRentActivity extends AppCompatActivity  {
                                 if (task.isSuccessful()) {
                                     updateRentData();
                                 } else {
-                                    functions.custom_toast(task.getException().getMessage());
+                                    functions.custom_toast(Objects.requireNonNull(task.getException()).getMessage());
                                 }
                                 new_rent_btn.revertAnimation();
                             }
@@ -354,7 +350,7 @@ public class NewRentActivity extends AppCompatActivity  {
                                     rentFireStore(functions.currentTime); // store data in DB
 
                                 } else {
-                                    functions.custom_toast(task.getException().getMessage());
+                                    functions.custom_toast(Objects.requireNonNull(task.getException()).getMessage());
                                 }
                                 new_rent_btn.revertAnimation();
                             }
@@ -392,17 +388,15 @@ public class NewRentActivity extends AppCompatActivity  {
         rentMap.put("user_set_rent_image",String.valueOf(user_set_rent_image));
         rentMap.put("latitude",new_rent_latitude.getText().toString());
         rentMap.put("longitude",new_rent_longitude.getText().toString());
-        rentMap.put("isVacant",true); // ---
-
-        Log.e("onClick", placeIndex + "");
+        rentMap.put("isVacant",true);
+        // ---
         rentMap.put("time",currentTime);
-        Log.e("time", currentTime);
         firebaseFirestore.collection("Rents").add(rentMap).addOnCompleteListener(new OnCompleteListener<DocumentReference>() {
             @Override
             public void onComplete(@NonNull Task<DocumentReference> task) {
 
                 if(task.isSuccessful()){
-                    getSupportActionBar().setTitle("تعديل بيانات الايجار ");
+                    Objects.requireNonNull(getSupportActionBar()).setTitle("تعديل بيانات الايجار ");
                     functions.goToActivityByParam(MainActivity.class);
                     functions.custom_toast(getString(R.string.ejar_added));
                 } else { functions.custom_toast(getString(R.string.error));}
@@ -412,13 +406,11 @@ public class NewRentActivity extends AppCompatActivity  {
 
     // validate inputs
     public boolean rentValid(){
-        if(!(TextUtils.isEmpty( place.getSelectedItem().toString()) || TextUtils.isEmpty( new_rent_price.getText()) ||
-                TextUtils.isEmpty(new_rent_state.getText()) || TextUtils.isEmpty( new_rent_type.getText())
+        return !(TextUtils.isEmpty(place.getSelectedItem().toString()) || TextUtils.isEmpty(new_rent_price.getText()) ||
+                TextUtils.isEmpty(new_rent_state.getText()) || TextUtils.isEmpty(new_rent_type.getText())
                 || TextUtils.isEmpty(new_rent_room_numbers.getText()) || TextUtils.isEmpty(new_rent_desc.getText())
                 || TextUtils.isEmpty(new_rent_latitude.getText()) || TextUtils.isEmpty(new_rent_longitude.getText()) ||
-                place.getSelectedItem().toString().equalsIgnoreCase("إختر المدينة")) ){
-            return true;
-        } else {return false; }
+                place.getSelectedItem().toString().equalsIgnoreCase("إختر المدينة"));
     }
     // open map activity
     public void selectPlacInMap(View view) {
@@ -435,7 +427,6 @@ public class NewRentActivity extends AppCompatActivity  {
         int pos = getIntent().getIntExtra("pos",0);
         // Set all field from DB
         place.setSelection(rentPosts.get(pos).getPlace_index()); // get spinner by index
-        Log.e("FillRentFromDB", "index: "+rentPosts.get(pos).getPlace_index() );
         // rentPosts.get(pos).getPlace();
         new_rent_price.setText(rentPosts.get(pos).getNew_rent_price());
         new_rent_state.setText(rentPosts.get(pos).getNew_rent_state());
@@ -473,9 +464,10 @@ public class NewRentActivity extends AppCompatActivity  {
         }
 
         updateMap.put("time",rentPosts.get(pos).getTime());
-        imageTimeName = rentPosts.get(pos).getTime();
+        // image name is by date
+        String imageTimeName = rentPosts.get(pos).getTime();
         getUserID();
-        Log.e("imageTimeName", "updateRentData: "+imageTimeName );
+        Log.e("imageTimeName", "updateRentData: "+ imageTimeName);
         Log.e("updateRentData", "updateRentData: "+rent_id );
         firebaseFirestore.collection("Rents").document(rent_id).update(updateMap)
                 .addOnSuccessListener(new OnSuccessListener<Void>() {
@@ -494,8 +486,6 @@ public class NewRentActivity extends AppCompatActivity  {
 
     // fragment to get location of rent
     public static class mapFragment extends DialogFragment implements OnMapReadyCallback {
-        private MapView mapView; // to get map from map view in layout
-        private GoogleMap mMap;
         private View mView;
 
         @Nullable
@@ -508,7 +498,8 @@ public class NewRentActivity extends AppCompatActivity  {
         @Override
         public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
             super.onViewCreated(view, savedInstanceState);
-            mapView = mView.findViewById(R.id.mapFragment);
+            // to get map from map view in layout
+            MapView mapView = mView.findViewById(R.id.mapFragment);
             if(mapView != null){
                 mapView.onCreate(savedInstanceState);
                 mapView.onResume();
@@ -518,22 +509,20 @@ public class NewRentActivity extends AppCompatActivity  {
 
         @Override
         public void onMapReady(GoogleMap googleMap) {
-            mMap = googleMap;
 
-            mMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); // change map type
+            googleMap.setMapType(GoogleMap.MAP_TYPE_HYBRID); // change map type
             // Take current LatLng when user long press on mappostNewRent
-            DecimalFormat format = new DecimalFormat("0.0000000"); // take 7 digit after dot
             // Check if user select latitude and longitude
             // Add Marker to map
             LatLng lastLocationSelected = new LatLng(28.386641,17.768575);
-            mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocationSelected,5));
+            googleMap.moveCamera(CameraUpdateFactory.newLatLngZoom(lastLocationSelected,5));
             // -------------------------------------------------------------------- //
-            mMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() { // Long click from user
+            googleMap.setOnMapLongClickListener(new GoogleMap.OnMapLongClickListener() { // Long click from user
                 @Override
                 public void onMapLongClick(LatLng latLng) {
                     // -------------------------------------------------------------------- //
-                    new_rent_latitude.setText(latLng.latitude + "");
-                    new_rent_longitude.setText(latLng.longitude + "");
+                    new_rent_latitude.setText(String.format("%s", latLng.latitude));
+                    new_rent_longitude.setText(String.format("%s", latLng.longitude));
                     dismiss();
 
                 }
