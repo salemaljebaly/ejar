@@ -174,12 +174,13 @@ public class SingleRent extends AppCompatActivity {
                 deleteDialog();
                 return true;
             case R.id.back :
-                functions.goToActivityByParam(MainActivity.class);
+                finish();
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
     // delete rent and image rent from DB
     private void deleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
