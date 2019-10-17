@@ -1,7 +1,6 @@
 package com.technowd.ejar.ui;
 
 import android.content.Intent;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -34,43 +33,38 @@ import javax.annotation.Nullable;
 
 public class UserRentsActivity extends AppCompatActivity {
     private static final String TAG = "UserRentsActivity";
-    private Toolbar user_rent_toolbar;
-    private RecyclerView userRentRecyclerView;
     private RentRecyclerAdapter rentRecyclerAdapter;
     private List<RentPosts> rentPosts;
     private Functions functions = new Functions(UserRentsActivity.this);
-    private FirebaseAuth mAuth;
-    private FirebaseUser user ;
-    private FirebaseFirestore firebaseFirestore;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_rents);
         // set tool bar
-        user_rent_toolbar = findViewById(R.id.user_rent_toolbar);
+        Toolbar user_rent_toolbar = findViewById(R.id.user_rent_toolbar);
         setSupportActionBar(user_rent_toolbar);
         // ------------------------------------------------------------------------- //
         // firebase
-        mAuth = FirebaseAuth.getInstance(); // take instance from firebase authentication
-        user = mAuth.getCurrentUser(); // get current user
-        firebaseFirestore = FirebaseFirestore.getInstance(); // get current user
+        FirebaseAuth mAuth = FirebaseAuth.getInstance(); // take instance from firebase authentication
+        FirebaseUser user = mAuth.getCurrentUser(); // get current user
+        FirebaseFirestore firebaseFirestore = FirebaseFirestore.getInstance(); // get current user
         // ------------------------------------------------------------------------- //
         rentPosts = new ArrayList<>(); // array list from rent post model
-        userRentRecyclerView = findViewById(R.id.userRentRecyclerView); // get recycler view
+        RecyclerView userRentRecyclerView = findViewById(R.id.userRentRecyclerView); // get recycler view
         rentRecyclerAdapter = new RentRecyclerAdapter(this,rentPosts); // take instance from RentRecyclerAdapter class
         userRentRecyclerView.setLayoutManager(new LinearLayoutManager(this)); // set recycler view as linear layout
         userRentRecyclerView.setAdapter(rentRecyclerAdapter); // set Adapter
         // ------------------------------------------------------------------------- //
         if(functions.CheckInternet()){
+            assert user != null;
             Query firstQuery = firebaseFirestore.collection("Rents").whereEqualTo("user_id", user.getUid());
             // get data from DB depends on time desc
             firstQuery.addSnapshotListener(new EventListener<QuerySnapshot>() {
                 @Override
                 public void onEvent(@Nullable QuerySnapshot queryDocumentSnapshots, @Nullable FirebaseFirestoreException e) {
+                    assert queryDocumentSnapshots != null;
                     if(!queryDocumentSnapshots.isEmpty()){ // check if data not empty
-//                        if(isFirstQueryLoaded){
-//                            lastVisible = queryDocumentSnapshots.getDocuments().get(queryDocumentSnapshots.size() - 1); // take all data in DB
-//                        }
                         for(DocumentChange doc : queryDocumentSnapshots.getDocumentChanges()){
                             if(doc.getType() == DocumentChange.Type.ADDED){
                                 RentPosts localrentPosts = doc.getDocument().toObject(RentPosts.class);
@@ -112,12 +106,10 @@ public class UserRentsActivity extends AppCompatActivity {
     // on user select option menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()){
-            case R.id.back :
-                functions.goToActivityByParam(MainActivity.class);
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+        if (item.getItemId() == R.id.back) {
+            functions.goToActivityByParam(MainActivity.class);
+            return true;
         }
+        return super.onOptionsItemSelected(item);
     }
 }

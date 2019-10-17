@@ -1,5 +1,6 @@
 package com.technowd.ejar.ui;
 
+import android.annotation.SuppressLint;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -35,11 +36,10 @@ import com.technowd.ejar.model.RentRecyclerAdapter;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class SearchActivity extends AppCompatActivity {
-    private static final String TAG = "searchActivity" ;
     private Functions functions = new Functions(SearchActivity.this);
-    private Toolbar searchToolbar;
     private Spinner searchSpinner;
     private RecyclerView searchRecyclerView;
     private List<RentPosts> rentPosts;
@@ -52,7 +52,7 @@ public class SearchActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_search);
         // toolbar
-        searchToolbar = findViewById(R.id.search_toolbar);
+        Toolbar searchToolbar = findViewById(R.id.search_toolbar);
         setSupportActionBar(searchToolbar);
         // -------------------------------------------------------- //
         buildRecyclerView();
@@ -60,8 +60,6 @@ public class SearchActivity extends AppCompatActivity {
         rentRecyclerAdapter.setOnItemClickListener(new RentRecyclerAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(int position) {
-                Log.e(TAG, "onItemClick: " + position );
-
                 final Intent intent = new Intent(SearchActivity.this, SingleRent.class);
                 intent.putExtra("position",position);
                 intent.putExtra("rentPosts", (Serializable) rentPosts);
@@ -114,7 +112,7 @@ public class SearchActivity extends AppCompatActivity {
         // ------------------------------------ //
         AlertDialog.Builder builder = new AlertDialog.Builder(this,R.style.AlertDialogCustom);
         LayoutInflater inflater = this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.custom_dialog,null);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.custom_dialog,null);
         searchSpinner = view.findViewById(R.id.search_rent);
         builder.setView(view);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.city_spinner
@@ -145,7 +143,7 @@ public class SearchActivity extends AppCompatActivity {
             }
         });
         AlertDialog dialog1 = builder.create();
-        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#fc890d")));
+        Objects.requireNonNull(dialog1.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#fc890d")));
         dialog1.show();
     }
 

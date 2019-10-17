@@ -1,12 +1,12 @@
 package com.technowd.ejar.ui;
 
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
-import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.recyclerview.widget.RecyclerView;
@@ -34,35 +34,28 @@ import com.technowd.ejar.MainActivity;
 import com.technowd.ejar.R;
 import com.technowd.ejar.general.Functions;
 import com.technowd.ejar.model.RentPosts;
-import com.technowd.ejar.model.RentRecyclerAdapter;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SingleRent extends AppCompatActivity {
     private Functions functions = new Functions(SingleRent.this);
-    private Toolbar singleToolbar;
     // declare all variables in class
     private CircleImageView single_user_image;
     private ImageView single_main_image;
     private TextView single_rent_user,single_rent_date,single_place,single_price,single_rent_building_type,single_room_number,
-            single_rent_state,single_rent_type,single_renter_phone,single_rent_desc,daily_or_monthly,vacant_state;
+            single_rent_state,single_renter_phone,single_rent_desc,daily_or_monthly,vacant_state;
     private String Latitude,Longitude;
     private FirebaseFirestore firebaseFirestore;
-    private FirebaseAuth mAuth;
     private FirebaseUser user;
     private StorageReference storageReference;
     private ArrayList<RentPosts> rentPosts;
     int pos;
     private String user_id;
-    RentRecyclerAdapter rentRecyclerAdapter;
     RecyclerView rentRecyclerView;
-    private boolean comeFromUser;
     private String rent_id;
-    private Boolean rentIsDeleted = false; // this var detect if rent deleted or not
-    private static String TAG = "singleActivity";
-    private Switch isVacant;
     private boolean is_vacant;
     // ----------------------------------------------------------------------------------- //
     @Override
@@ -79,7 +72,7 @@ public class SingleRent extends AppCompatActivity {
         user_id = rentPosts.get(pos).getUser_id(); // user ID
         // ------------------------------------------------------------------------------- //
         // firebase
-        mAuth = FirebaseAuth.getInstance();
+        FirebaseAuth mAuth = FirebaseAuth.getInstance();
         user = mAuth.getCurrentUser();
         storageReference = FirebaseStorage.getInstance().getReference();
         firebaseFirestore = FirebaseFirestore.getInstance();
@@ -91,7 +84,7 @@ public class SingleRent extends AppCompatActivity {
         setRentData();
         // ------------------------------------------------------------------------------- //
         // functions.custom_toast(getIntent().getStringExtra("desc"));
-        singleToolbar = findViewById(R.id.singleToolbar);
+        Toolbar singleToolbar = findViewById(R.id.singleToolbar);
         setSupportActionBar(singleToolbar);
         // -------------------------------
     }
@@ -122,6 +115,7 @@ public class SingleRent extends AppCompatActivity {
         Longitude = rentPosts.get(pos).getLongitude();
         single_rent_date.setText(rentPosts.get(pos).getTime());
         single_place.setText(rentPosts.get(pos).getPlace());
+        String TAG = "singleActivity";
         Log.e(TAG, "place single: " + rentPosts.get(pos).getPlace() );
         single_price.setText(rentPosts.get(pos).getNew_rent_price());
         single_rent_building_type.setText(rentPosts.get(pos).getNew_rent_type());
@@ -177,7 +171,6 @@ public class SingleRent extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.delete_rent :
-                rentIsDeleted = true;
                 deleteDialog();
                 return true;
             case R.id.back :
@@ -282,8 +275,8 @@ public class SingleRent extends AppCompatActivity {
         // ------------------------------------ //
         androidx.appcompat.app.AlertDialog.Builder builder = new androidx.appcompat.app.AlertDialog.Builder(this,R.style.AlertDialogCustom);
         LayoutInflater inflater = this.getLayoutInflater();
-        View view = inflater.inflate(R.layout.is_vacant,null);
-        isVacant = view.findViewById(R.id.isVacant);
+        @SuppressLint("InflateParams") View view = inflater.inflate(R.layout.is_vacant,null);
+        Switch isVacant = view.findViewById(R.id.isVacant);
         builder.setView(view);
 
         isVacant.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
@@ -314,7 +307,7 @@ public class SingleRent extends AppCompatActivity {
             }
         });
         androidx.appcompat.app.AlertDialog dialog1 = builder.create();
-        dialog1.getWindow().setBackgroundDrawable(new ColorDrawable(Color.parseColor("#fc890d")));
+        Objects.requireNonNull(dialog1.getWindow()).setBackgroundDrawable(new ColorDrawable(Color.parseColor("#fc890d")));
         dialog1.show();
     }
 }

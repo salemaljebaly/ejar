@@ -7,7 +7,7 @@ import android.os.Build;
 import androidx.annotation.NonNull;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.appcompat.app.AlertDialog;
+
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import androidx.appcompat.widget.Toolbar;
@@ -42,11 +42,13 @@ import com.theartofdev.edmodo.cropper.CropImageView;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import br.com.simplepass.loading_button_lib.customViews.CircularProgressButton;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class SetUpActivity extends AppCompatActivity {
+    private static final String TAG = SetUpActivity.class.getName();
     public Spinner setup_spinner_city;
     Toolbar setup_tool_bar;
     Functions functions = new Functions(SetUpActivity.this);
@@ -106,20 +108,18 @@ public class SetUpActivity extends AppCompatActivity {
         //------------------------------------------------------------------------//
         // check if user is logged in
         currrnetUser= maAuth.getCurrentUser(); // get current user
-        user_id = maAuth.getCurrentUser().getUid();
+        user_id = Objects.requireNonNull(maAuth.getCurrentUser()).getUid();
         // if user logged in then get Data from firebase storage
         firebaseFirestore.collection("Users").document(user_id).get().addOnCompleteListener(new OnCompleteListener<DocumentSnapshot>() {
             @Override
             public void onComplete(@NonNull Task<DocumentSnapshot> task) {
                 if(task.isSuccessful()){
-                    if(task.getResult().exists()){
+                    if(Objects.requireNonNull(task.getResult()).exists()){
                         user_name.setText(task.getResult().getString("user_name"));
                         user_phone.setText(task.getResult().getString("user_phone"));
 
-                        setup_spinner_city.setSelection(Integer.parseInt(task.getResult().getString("city_id")));
-                        Log.e("searchSpiner", "onComplete: "+task.getResult().getString("city_id") );
-                        // TODO solve spinner get value problem
-                        Log.e("uri", task.getResult().getString("city_id"));
+                        setup_spinner_city.setSelection(Integer.parseInt(Objects.requireNonNull(task.getResult().getString("city_id"))));
+
                         // get Image Uri from database Storage
                         storageReference.child("profile_images/" + user_id +".jpg").getDownloadUrl().addOnSuccessListener(new OnSuccessListener<Uri>() {
                             @Override
@@ -173,7 +173,7 @@ public class SetUpActivity extends AppCompatActivity {
                 if(!(TextUtils.isEmpty(user_phone.getText()) || TextUtils.isEmpty(user_phone.getText())
                         || selectedItem.equals("إختر المدينة"))){
                         save_setup.startAnimation();
-                        user_id = maAuth.getCurrentUser().getUid();
+                        user_id = Objects.requireNonNull(maAuth.getCurrentUser()).getUid();
                         final StorageReference image_path = storageReference.child("profile_images").child(user_id + ".jpg");
                         // upload image to firebase storage
                         image_path.putFile(user_image_uri).addOnCompleteListener(new OnCompleteListener<UploadTask.TaskSnapshot>() {
@@ -181,9 +181,9 @@ public class SetUpActivity extends AppCompatActivity {
                             @Override
                             public void onComplete(@NonNull Task<UploadTask.TaskSnapshot> task) {
                                 if(task.isSuccessful()){
-                                    storeFireStore(task);
+                                    storeFireStore();
                                 } else {
-                                    functions.custom_toast(task.getException().getMessage());
+                                    functions.custom_toast(Objects.requireNonNull(task.getException()).getMessage());
                                 }
                                 save_setup.revertAnimation();
                             }
@@ -191,19 +191,12 @@ public class SetUpActivity extends AppCompatActivity {
                     //----------------------------------------------------------------------------//
                 } else {functions.custom_toast("لايمكن ترك أين من الحقول فارغا");} // End valid inputs
             } else {functions.custom_toast("يجب إختيار صورة");}
-//            else {
-//                save_setup.startAnimation();
-//                if(!selectedItem.equals("إختر المدينة")){ // check if spinner not empty
-//                    storeFireStore(null);
-//                } else {functions.custom_toast("يجب إختيار المدينة");}
-//                save_setup.revertAnimation();
-//            }
             // ------------------------------------------------------------- //
         } else {functions.custom_toast("يوجد مشكلة في الشبكة");} // connection problem
         // ------------------------------------------------------------- //
     }
     // custom func to store date in DB
-    private void storeFireStore(Task<UploadTask.TaskSnapshot> task) {
+    private void storeFireStore() {
         // pass values via HashMap
         String phone = user_phone.getText().toString();
         Map<String, String> userMap = new HashMap<>();
@@ -235,7 +228,7 @@ public class SetUpActivity extends AppCompatActivity {
                     // navigate to mainactivity
                     functions.goToActivityByParam(MainActivity.class);
                 } else {
-                    functions.custom_toast(task.getException().getMessage());
+                    functions.custom_toast(Objects.requireNonNull(task.getException()).getMessage());
                 }
             }
         });
@@ -252,16 +245,14 @@ public class SetUpActivity extends AppCompatActivity {
     // do event when user press item from menu
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        switch(item.getItemId()){
-            case R.id.back:
-                functions.goToActivityByParam(MainActivity.class);
-                return true;
+        if (item.getItemId() == R.id.back) {
+            functions.goToActivityByParam(MainActivity.class);
+            return true;
 //            case R.id.delete_user:
 //                 deleteUserWithAllRents();
 //                return true;
-            default:
-                return super.onOptionsItemSelected(item);
         }
+        return super.onOptionsItemSelected(item);
     }
     // Catch activity result
     @Override
@@ -275,6 +266,7 @@ public class SetUpActivity extends AppCompatActivity {
                 image_changed = true;
             } else if (resultCode == CropImage.CROP_IMAGE_ACTIVITY_RESULT_ERROR_CODE) {
                 Exception error = result.getError();
+                Log.e(TAG, "onActivityResult: ", error);
             }
         }
     }
